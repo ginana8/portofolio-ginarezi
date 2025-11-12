@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Github, ExternalLink, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { ExternalLink, X, ChevronLeft, ChevronRight } from "lucide-react";
 import projects from "../data/projectsData";
 
 const techColors = {
@@ -8,6 +8,7 @@ const techColors = {
   Django: "bg-green-600 text-white",
   Flask: "bg-yellow-500 text-black",
   PHP: "bg-blue-500 text-white",
+  "React + Tailwind CSS": "bg-sky-500 text-white",
 };
 
 export default function ProjectsWeb() {
@@ -19,15 +20,13 @@ export default function ProjectsWeb() {
     setCurrentImage(0);
   };
 
-  const nextImage = () => {
-    if (!selectedProject) return;
+  const nextImage = () =>
+    selectedProject &&
     setCurrentImage((prev) => (prev + 1) % selectedProject.images.length);
-  };
 
-  const prevImage = () => {
-    if (!selectedProject) return;
+  const prevImage = () =>
+    selectedProject &&
     setCurrentImage((prev) => (prev - 1 + selectedProject.images.length) % selectedProject.images.length);
-  };
 
   return (
     <section id="projects" className="pt-44 pb-32 bg-gradient-to-b from-gray-50 to-white min-h-screen">
@@ -64,37 +63,23 @@ export default function ProjectsWeb() {
                 <h3 className="text-xl font-semibold mb-3 text-gray-900 group-hover:text-[#d16b86] transition">
                   {project.title}
                 </h3>
-
-                <p className="text-gray-600 text-sm mb-5 leading-relaxed">
-                  {project.description}
-                </p>
+                <p className="text-gray-600 text-sm mb-5 leading-relaxed">{project.description}</p>
 
                 <div className="flex items-center justify-between">
-                  <div className="flex gap-3">
-                    <a
-                      href={project.demoLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="flex items-center gap-2 px-3 py-2 bg-[#d16b86] text-white rounded-lg text-sm font-medium hover:bg-[#b45771] transition"
-                    >
-                      <ExternalLink size={16} /> Demo
-                    </a>
-
-                    <a
-                      href={project.codeLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition"
-                    >
-                      <Github size={16} /> Code
-                    </a>
-                  </div>
-
+                  <a
+                    href={project.demoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex items-center gap-2 px-3 py-2 bg-[#d16b86] text-white rounded-lg text-sm font-medium hover:bg-[#b45771] transition"
+                  >
+                    <ExternalLink size={16} /> Demo
+                  </a>
                   {project.tech && (
                     <span
-                      className={`text-sm font-medium px-2 py-1 rounded ${techColors[project.tech] || "bg-gray-200 text-gray-700"}`}
+                      className={`text-sm font-medium px-2 py-1 rounded ${
+                        techColors[project.tech] || "bg-gray-200 text-gray-700"
+                      }`}
                     >
                       {project.tech}
                     </span>
@@ -186,21 +171,11 @@ export default function ProjectsWeb() {
                       <ExternalLink size={16} /> Demo
                     </a>
                   )}
-
-                  {selectedProject.codeLink && (
-                    <a
-                      href={selectedProject.codeLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition"
-                    >
-                      <Github size={16} /> Code
-                    </a>
-                  )}
-
                   {selectedProject.tech && (
                     <span
-                      className={`text-sm font-medium px-2 py-1 rounded ${techColors[selectedProject.tech] || "bg-gray-200 text-gray-700"}`}
+                      className={`text-sm font-medium px-2 py-1 rounded ${
+                        techColors[selectedProject.tech] || "bg-gray-200 text-gray-700"
+                      }`}
                     >
                       {selectedProject.tech}
                     </span>

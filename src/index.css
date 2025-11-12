@@ -4,32 +4,30 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
-:root{
+:root {
   --section-padding: 4.5rem;
 }
 
-html { 
-  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; 
+html {
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-/* ===== Animasi Reveal ===== */
-[data-reveal]{
+[data-reveal] {
   opacity: 0;
   transform: translateY(12px);
   transition: opacity .7s ease, transform .7s ease;
 }
-[data-reveal].revealed{
+
+[data-reveal].revealed {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ===== Detail Description ===== */
-.detail-description.hidden{
+.detail-description.hidden {
   display: none;
 }
 
-/* ===== Container Custom ===== */
-.container-custom{
+.container-custom {
   max-width: 1140px;
   margin-left: auto;
   margin-right: auto;
@@ -37,9 +35,6 @@ html {
   padding-right: 1rem;
 }
 
-/* ===== Responsive Media Queries ===== */
-
-/* iPad / Tablet portrait (sm ~ 768px) */
 @media (max-width: 768px) {
   .container-custom {
     padding-left: 1rem;
@@ -58,7 +53,6 @@ html {
   }
 }
 
-/* Laptop / small desktop (md ~ 1024px) */
 @media (max-width: 1024px) {
   nav[data-navbar] a {
     font-size: 0.95rem;
@@ -68,12 +62,11 @@ html {
   }
 }
 
-/* Mobile / iPhone / Android (sm ~ 640px) */
 @media (max-width: 640px) {
   .container-custom {
-    max-width: 100%; /* full width untuk HP */
-    padding-left: 1rem; /* cukup ruang kiri */
-    padding-right: 1rem; /* cukup ruang kanan */
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
   header div.container {
     flex-direction: column;

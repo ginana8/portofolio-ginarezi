@@ -7,7 +7,8 @@ export default function Header() {
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setAnimate(true), 200);
+    const timer = setTimeout(() => setAnimate(true), 200);
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -17,13 +18,12 @@ export default function Header() {
   }, []);
 
   const toggleNavbar = () => {
-    setNavActive(!navActive);
+    setNavActive((prev) => !prev);
     document.body.classList.toggle("overflow-hidden", !navActive);
   };
 
   return (
     <>
-      {/* Overlay untuk mobile */}
       <div
         className={`fixed inset-0 bg-black/40 z-40 transition-opacity duration-300 ${
           navActive ? "opacity-100 visible" : "opacity-0 invisible"
@@ -31,7 +31,6 @@ export default function Header() {
         onClick={toggleNavbar}
       ></div>
 
-      {/* Header */}
       <header
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-700 ${
           headerActive ? "bg-white py-3 shadow-md" : "bg-transparent py-5"
@@ -45,7 +44,6 @@ export default function Header() {
                 : "bg-white rounded-2xl shadow-md py-4 px-4 sm:px-6"
             }`}
           >
-            {/* Logo */}
             <a
               href="#"
               className="text-xl sm:text-2xl md:text-3xl font-bold text-[#d16b86] whitespace-nowrap mb-2 md:mb-0"
@@ -53,45 +51,32 @@ export default function Header() {
               Gina Rezi
             </a>
 
-            {/* Navigation */}
             <nav className="hidden md:flex flex-wrap items-center justify-center gap-6 lg:gap-10 text-gray-800 font-semibold text-sm lg:text-base">
-              <a href="#home" className="hover:text-[#d16b86]">
-                Home
-              </a>
-              <a href="#skill" className="hover:text-[#d16b86]">
-                Skill
-              </a>
-              <a href="#projects" className="hover:text-[#d16b86]">
-                Portfolio
-              </a>
-              <a href="#certificate" className="hover:text-[#d16b86]">
-                Sertifikat
-              </a>
-              <a href="#contact" className="hover:text-[#d16b86]">
-                Contact
-              </a>
+              {["home", "skill", "projects", "certificate", "contact"].map(
+                (item) => (
+                  <a
+                    key={item}
+                    href={`#${item}`}
+                    className="hover:text-[#d16b86] capitalize"
+                  >
+                    {item}
+                  </a>
+                )
+              )}
             </nav>
 
-            {/* Icons + Menu Button */}
             <div className="flex items-center gap-3 sm:gap-4 text-gray-800 ml-auto md:ml-0">
-              <a
-                href="https://instagram.com/ginarezi"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#d16b86] text-lg sm:text-xl transition"
-              >
-                <FaInstagram />
-              </a>
-              <a
-                href="https://instagram.com/sk.rlsk"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#d16b86] text-lg sm:text-xl transition"
-              >
-                <FaInstagram />
-              </a>
-
-              {/* Tombol menu untuk mobile */}
+              {["ginarezi", "sk.rlsk"].map((user) => (
+                <a
+                  key={user}
+                  href={`https://instagram.com/${user}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#d16b86] text-lg sm:text-xl transition"
+                >
+                  <FaInstagram />
+                </a>
+              ))}
               <button
                 onClick={toggleNavbar}
                 className="block md:hidden text-2xl text-gray-700"
@@ -103,7 +88,6 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Sidebar menu untuk mobile */}
       <nav
         className={`fixed top-0 right-0 h-full w-64 sm:w-72 bg-white shadow-lg z-50 transform transition-transform duration-300 md:hidden ${
           navActive ? "translate-x-0" : "translate-x-full"
@@ -117,31 +101,15 @@ export default function Header() {
         </div>
 
         <ul className="flex flex-col p-6 gap-6 text-gray-700 font-medium text-base sm:text-lg">
-          <li>
-            <a href="#home" onClick={toggleNavbar}>
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#skill" onClick={toggleNavbar}>
-              Skill
-            </a>
-          </li>
-          <li>
-            <a href="#projects" onClick={toggleNavbar}>
-              Portfolio
-            </a>
-          </li>
-          <li>
-            <a href="#certificate" onClick={toggleNavbar}>
-              Sertifikat
-            </a>
-          </li>
-          <li>
-            <a href="#contact" onClick={toggleNavbar}>
-              Contact
-            </a>
-          </li>
+          {["home", "skill", "projects", "certificate", "contact"].map(
+            (item) => (
+              <li key={item}>
+                <a href={`#${item}`} onClick={toggleNavbar} className="block">
+                  {item.charAt(0).toUpperCase() + item.slice(1)}
+                </a>
+              </li>
+            )
+          )}
         </ul>
       </nav>
     </>

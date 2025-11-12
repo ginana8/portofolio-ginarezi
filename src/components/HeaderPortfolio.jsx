@@ -9,7 +9,8 @@ export default function HeaderPortfolio() {
   const location = useLocation();
 
   useEffect(() => {
-    setTimeout(() => setAnimate(true), 200);
+    const timer = setTimeout(() => setAnimate(true), 200);
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -19,7 +20,7 @@ export default function HeaderPortfolio() {
   }, []);
 
   const toggleNavbar = () => {
-    setNavActive(!navActive);
+    setNavActive((prev) => !prev);
     document.body.classList.toggle("overflow-hidden", !navActive);
   };
 
@@ -30,15 +31,13 @@ export default function HeaderPortfolio() {
 
   return (
     <>
-      {/* Overlay hitam saat menu aktif */}
       <div
         className={`fixed inset-0 bg-black/40 z-40 transition-opacity duration-300 md:hidden ${
           navActive ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
         onClick={toggleNavbar}
-      ></div>
+      />
 
-      {/* HEADER */}
       <header
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-700 ${
           headerActive ? "bg-white py-4" : "bg-transparent py-6"
@@ -52,15 +51,10 @@ export default function HeaderPortfolio() {
                 : "rounded-2xl shadow-md bg-white py-4"
             }`}
           >
-            {/* LOGO */}
-            <Link
-              to="/"
-              className="text-2xl md:text-3xl font-bold text-[#d16b86]"
-            >
+            <Link to="/" className="text-2xl md:text-3xl font-bold text-[#d16b86]">
               Gina Rezi
             </Link>
 
-            {/* NAVIGATION MENU (desktop) */}
             <nav className="hidden md:flex gap-8 text-gray-800 font-semibold justify-center items-center">
               <Link
                 to="/"
@@ -88,9 +82,7 @@ export default function HeaderPortfolio() {
               </Link>
             </nav>
 
-            {/* IKON INSTAGRAM + TOMBOL MENU */}
             <div className="flex items-center gap-4">
-              {/* IG hanya tampil di desktop */}
               <div className="hidden md:flex items-center gap-4">
                 <a
                   href="https://instagram.com/ginarezi"
@@ -118,7 +110,6 @@ export default function HeaderPortfolio() {
                 </a>
               </div>
 
-              {/* Tombol ☰ hanya di mobile */}
               <button
                 onClick={toggleNavbar}
                 aria-label="Toggle navigation"
@@ -131,7 +122,6 @@ export default function HeaderPortfolio() {
         </div>
       </header>
 
-      {/* SIDEBAR MENU (mobile) */}
       <nav
         className={`fixed top-0 right-0 h-full w-3/4 sm:w-72 bg-white shadow-lg z-50 transform transition-transform duration-300 md:hidden ${
           navActive ? "translate-x-0" : "translate-x-full"
@@ -139,11 +129,7 @@ export default function HeaderPortfolio() {
       >
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-[#d16b86] font-bold text-lg">Menu</h2>
-          <button
-            onClick={toggleNavbar}
-            className="text-2xl font-bold"
-            aria-label="Close menu"
-          >
+          <button onClick={toggleNavbar} className="text-2xl font-bold" aria-label="Close menu">
             ✕
           </button>
         </div>
@@ -155,25 +141,15 @@ export default function HeaderPortfolio() {
             </Link>
           </li>
           <li>
-            <Link
-              to="/projects-web"
-              onClick={toggleNavbar}
-              className="block w-full"
-            >
+            <Link to="/projects-web" onClick={toggleNavbar} className="block w-full">
               Website
             </Link>
           </li>
           <li>
-            <Link
-              to="/projects-uiux"
-              onClick={toggleNavbar}
-              className="block w-full"
-            >
+            <Link to="/projects-uiux" onClick={toggleNavbar} className="block w-full">
               UI/UX
             </Link>
           </li>
-
-          {/* Tambah ikon IG juga di dalam menu mobile */}
           <li className="flex gap-4 mt-4">
             <a
               href="https://instagram.com/ginarezi"

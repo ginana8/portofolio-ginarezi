@@ -32,7 +32,6 @@ export default function Projects() {
         <p className="text-lg sm:text-lg md:text-xl text-gray-600 mb-16">
           Lihat beberapa proyek terbaru saya dengan ide-ide kreatif.
         </p>
-
         <div className="flex flex-col gap-20">
           {projects.map((p, i) => (
             <div
@@ -41,7 +40,6 @@ export default function Projects() {
                 i % 2 !== 0 ? "md:flex-row-reverse" : ""
               }`}
             >
-              {/* Teks / Judul */}
               <div className="md:w-1/2 w-full mb-6 md:mb-0 md:pl-8">
                 <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6 sm:mb-8">
                   {p.title}
@@ -53,8 +51,6 @@ export default function Projects() {
                   See Portfolio <ArrowRight size={18} />
                 </Link>
               </div>
-
-              {/* Gambar */}
               <div className="md:w-1/2 w-full flex justify-center md:justify-end">
                 <img
                   src={p.img}
